@@ -84,7 +84,7 @@ def vessel_menu(): # main function to run the vessel menu
         if choice == "1": 
             print("Enter waypoint coordinates.")
             waypoint_latitude, waypoint_longitude = get_gps_location()
-            print("Waypoint set to latitude of {:.1f} and longitude of {:.1f}.".format(waypoint_latitude, waypoint_longitude)) # 1 decimal place
+            print("Waypoint set to latitude of {:.1f} and longitude of {:.1f}".format(waypoint_latitude, waypoint_longitude)) # 1 decimal place
         elif choice == "2":
             if not (waypoint_latitude and waypoint_longitude):
                 print("No waypoint set.")
