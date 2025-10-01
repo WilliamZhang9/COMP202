@@ -9,7 +9,7 @@ MIN_LONG = -180
 MAX_LONG = 180
 EARTH_RADIUS = 6378 #in km
 STORM_STEPS= 5
-import math
+import math    
 import random
 
 def degrees_to_radians(degrees): # function to convert degrees to radians
@@ -18,14 +18,14 @@ def degrees_to_radians(degrees): # function to convert degrees to radians
 
 def get_valid_coordinate(val_name, min_float, max_float): # function to get valid coordinate input
     while True:
-        value = float(input("What is your {} ?".format(val_name)))
+        value = float(input("What is your {} ?".format(val_name))) 
         if min_float < value < max_float:   # check if value valid
             return value
         else:
             print("Invalid {}".format(val_name))
 
 def get_gps_location(): # function to get valid gps location
-    lat = get_valid_coordinate("latitude", MIN_LAT, MAX_LAT)
+    lat = get_valid_coordinate("latitude", MIN_LAT, MAX_LAT) 
     longi = get_valid_coordinate("longitude", MIN_LONG, MAX_LONG)
     return lat, longi
 
@@ -68,21 +68,20 @@ def move_toward_waypoint(current_lat, current_long, waypoint_lat, waypoint_long)
 
 def vessel_menu(): # main function to run the vessel menu
     print("Welcome to the boat menu!")
-    current_latitude = get_valid_coordinate("latitude", MIN_LAT, MAX_LAT)   # get initial coordinates
-    current_longitude = get_valid_coordinate("longitude", MIN_LONG, MAX_LONG)
+    current_latitude, current_longitude = get_gps_location()
 
     waypoint_latitude = None
     waypoint_longitude = None
     storm_counter = STORM_STEPS
     mission_active = True   # to control the loop
 
-    while mission_active:   # main execution
+    while mission_active:   # main execution 
         print("Please select an option below:")
         print("1) Set waypoint")
         print("2) Move toward waypoint and Status report")
         print("3) Exit boat menu")
         choice = input("Choose: ")
-        if choice == "1":
+        if choice == "1": 
             print("Enter waypoint coordinates.")
             waypoint_latitude, waypoint_longitude = get_gps_location()
             print("Waypoint set to latitude of {:.1f} and longitude of {:.1f}.".format(waypoint_latitude, waypoint_longitude)) # 1 decimal place
@@ -94,7 +93,7 @@ def vessel_menu(): # main function to run the vessel menu
                 # move toward waypoint
                 current_latitude, current_longitude = move_toward_waypoint(
                 current_latitude, current_longitude, waypoint_latitude, waypoint_longitude)
-
+            
                 # 20% chance getting struck by wave
                 if random.random() < 0.2:
                     current_latitude = apply_wave_impact(current_latitude, MIN_LAT, MAX_LAT)
@@ -113,7 +112,6 @@ def vessel_menu(): # main function to run the vessel menu
                     storm_counter -= 1
                     print("Storm T-minus: {}".format(storm_counter))
                     if storm_counter == 0:
-                        current_latitude, current_longitude = wave_hit_vessel(current_latitude, current_longitude)
                         print("Mission failed: storm hit before arrival.")
                         mission_active = False
 
@@ -123,3 +121,7 @@ def vessel_menu(): # main function to run the vessel menu
 
         else:
             print("Invalid choice. Try again.")
+
+if __name__ == "__main__":   # only run when script is executed directly
+    vessel_menu()   # call the main function to execute our program
+
