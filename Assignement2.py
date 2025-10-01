@@ -1,6 +1,6 @@
 # 1. Please complete the following:
 #   Your First name and Last Name: William Zhang
-#   Your Student ID: 260459020
+#   Your Student ID: *****
 
 #define constants
 MIN_LAT = -90
